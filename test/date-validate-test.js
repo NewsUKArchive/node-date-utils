@@ -515,6 +515,34 @@ vows.describe('Date Validate').addBatch({
         }
     },
 
+    'daysToWeekStart works': {
+        'returns correct number of days': function () {
+            var date = new Date('01-01-2011');
+            assert.equal(date.daysToWeekStart(), 5);
+        }
+    },
+
+    'beginningOfWeek works': {
+        'returns the monday of the week': function () {
+            var date = new Date('01-01-2011'),
+                startOfWeek = new Date('12-27-2010').clearTime();
+            assert.equal(date.beginningOfWeek().valueOf(), startOfWeek.valueOf());
+        }
+    },
+
+    'dayOfWeek works': {
+        'returns a previous day of week': function () {
+            var date = new Date('01-01-2011'),
+                wednesday = new Date('12-29-2010').clearTime();
+            assert.equal(date.dayOfWeek(Date.getDayNumberFromName("wednesday")-1).valueOf(), wednesday.valueOf());
+        },
+        'returns a future day of week': function () {
+            var date = new Date('01-04-2011'),
+                saturday = new Date('01-08-2011');
+            assert.equal(date.dayOfWeek(Date.getDayNumberFromName("saturday")-1).valueOf(), saturday.valueOf());
+        }
+    },
+
     'getDaysInMonth works': {
         'january': function (topic) {
             assert.equal(Date.getDaysInMonth(2011, 0), 31);
